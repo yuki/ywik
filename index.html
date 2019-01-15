@@ -1,1 +1,57 @@
-hola!
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="assets/css/ywik.css">
+        <title>Ywik</title>
+    </head>
+
+    <body>
+        <nav class="navbar fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Ywi<img src="assets/images/kodi-logo.png" id="kodi-logo" /></a>
+
+            <a class="nav-link" href="#movies">
+                <i class="fas fa-film" style="color:white"></i>
+            </a>
+            <a class="nav-link" href="#tvshows">
+                <i class="fas fa-tv" style="color:white"></i>
+            </a>
+            <a class="nav-link" href="#browser">
+                <i class="fas fa-list" style="color:white"></i>
+            </a>
+            <a class="nav-link" href="#random">
+                <i class="fas fa-random" style="color:white"></i>
+            </a>
+            <a class="nav-link" href="#remote">
+                <i class="fas fa-wifi" style="color:white"></i>
+            </a>
+        </nav>
+
+        <main role="main">
+            <div class="container">
+                <div id="show-item" class="row" style="display:none;">
+                    <div id="thumbnail" class="mb-3">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <h1 id="title"></h1>
+                    </div>
+                </div>
+
+				<div class="list-group mt-3" id="items-list"></div>
+            </div>
+        </main>
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/ywik.js"></script>
+
+        <script type="text/javascript">
+            window.addEventListener("hashchange", hash_changed, false);
+        </script>
+    </body>
+</html>
