@@ -8,7 +8,9 @@ The main reason is that the default web interface [Chorus](https://github.com/xb
 
 This web interface will let you navigate through your Kodi's library, select a movie and open it in your iOS device via [VLC](https://www.videolan.org/vlc/download-ios.html)
 
-## Features
-- View your Kodi's library
-- View a movie in your iOS device through VLC
-- Control Kodi with the built-in remote
+
+## Features
+- [x] View your Kodi's library (Movies And TV-Shows)
+- [ ] View your Files
+- [ ] View a movie in your iOS device through VLC
+- [ ] Control Kodi with the built-in remote
