@@ -10,3 +10,49 @@ img {
 img#kodi-logo {
   width: 25px;
 }
+
+a, a:hover {
+  color:white;
+}
+
+#movie_rating_div {
+  position: absolute;
+}
+
+#rating_star {
+  /*
+  color:rgb(212,175,55);
+  */
+  color:rgb(0,178,225);
+}
+
+.rating_star {
+  margin-top: -0.2em;
+}
+
+.season_name {
+  font-weight: bold;
+}
+
+.episode {
+  padding-left: 2em;
+}
+
+/*
+#circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 150px;
+  height: 150px;
+}
+
+.loader {
+    width: calc(100% - 0px);
+	height: calc(100% - 0px);
+	border: 8px solid black;
+	border-radius: 50%;
+	animation: rotate 5s linear infinite;
+}
+*/

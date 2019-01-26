@@ -6,6 +6,12 @@ function get_url(){
     return location.protocol+'//'+location.hostname+(location.port?":"+location.port:"");
 }
 
+function copy_link(element){
+    var link = document.getElementById("movie_link");
+    link.select()
+    document.execCommand("copy");
+}
+
 function make_action(get_what,element_id){
     data_object = {
         "jsonrpc":"2.0",
@@ -14,6 +20,7 @@ function make_action(get_what,element_id){
         "params":{
             "properties":[
                 "title",
+                "plot",
                 "thumbnail",
                 "year",
                 "rating",
@@ -67,6 +74,12 @@ function make_action(get_what,element_id){
                 $("<img>").attr("src",get_url()+"/image/"+encodeURIComponent(element.thumbnail))
             );
             $("#title").html(element.label);
+            $("#plot").html(element.plot);
+            $("#movie_rating").html(element.rating.toFixed(1));
+            $("#movie_link").attr("href",get_url()+"/vfs/"+encodeURIComponent(element.file));
+            $("#play_movie").attr("href","vlc-x-callback://x-callback-url/stream?url="+get_url()+"/vfs/"+encodeURIComponent(element.file))
+//            $("#play_movie").attr("href","vlc-x-callback://x-callback-url/stream?url=http://rugoli.no-ip.org/vfs//home/disco4tb/dowloaded_files/Bao.2018.1080p.Bluray.X264-EVO[EtHD]/Bao.2018.1080p.Bluray.X264-EVO[EtHD].mkv")
+
         } else {
             // GET ALL ELEMENTS
 
@@ -85,9 +98,18 @@ function make_action(get_what,element_id){
                 } else {
                     id = element.tvshowid
                 }
-                $("#items-list").append(
-                    $("<a>").attr("href","#"+get_what+"/"+id).attr("class","list-group-item list-group-item-action").html(element.label)
-                );
+                var clone = $("#item_list").clone(true,true);
+                clone.children();
+                clone[0].href = "#"+get_what+"/"+id;
+                clone[0].childNodes[0].textContent = element.label;
+                clone[0].childNodes[1].childNodes[4].textContent = element.rating.toFixed(1);
+                clone.show();
+                $("#items-list").append(clone);
+//                $("#items-list").append(
+//                    $("<a>").attr("href","#"+get_what+"/"+id).attr("class","list-group-item list-group-item-action").html(element.label).append(
+//                        $(" <span>").attr("class","badge badge-dark float-right").html(element.rating.toFixed(1))
+//                    )
+//                );
             });
         }
     });
@@ -106,11 +128,31 @@ function hash_changed(event){
     }
 
     switch(path){
+        case "":
+            $("#remote").hide();
+            $("#seasons").hide();
+            $("#items-list").show();
+            $("#extra_info").show();
+            make_action("movies",id);
+            break;
         case "movies":
+            $("#remote").hide();
+            $("#seasons").hide();
+            $("#items-list").show();
+            $("#extra_info").show();
             make_action("movies",id);
             break;
         case "tvshows":
+            $("#remote").hide();
+            $("#extra_info").hide();
+            $("#items-list").show();
+            $("#seasons").show();
             make_action("tvshows",id);
+            break;
+        case "remote":
+            $("#show-item").hide();
+            $("#items-list").hide();
+            $("#remote").show();
             break;
     }
 }
