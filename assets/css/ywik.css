@@ -17,6 +17,7 @@ a, a:hover {
 
 #movie_rating_div {
   position: absolute;
+  margin-left: 0.5em;
 }
 
 #rating_star {
@@ -32,11 +33,9 @@ a, a:hover {
 
 .season_name {
   font-weight: bold;
+  color: white;
 }
 
-.episode {
-  padding-left: 2em;
-}
 
 /*
 #circle {

@@ -12,6 +12,66 @@ function copy_link(element){
     document.execCommand("copy");
 }
 
+function get_episodes(tvshowid){
+    data_object = {
+        "jsonrpc":"2.0",
+        "id":1,
+        "method":"VideoLibrary.GetEpisodes",
+        "params":{
+            "tvshowid": tvshowid,
+            "properties":[
+                "season",
+                "episode",
+                "file"
+            ],
+            "sort":{
+                "method":"season",
+                "order":"ascending"
+            }
+        }
+    };
+
+    data_object = JSON.stringify(data_object);
+
+    $.ajax({
+        url: '/jsonrpc',
+        type: 'POST',
+        async: true,
+        headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+        },
+        data: data_object,
+        dataType: 'json'
+    }).done(function(response, textStatus, jqXHR){
+        $("#seasons").empty();
+
+        items_list = response.result.episodes;
+
+        var season = -1;
+        items_list.forEach(function(element) {
+            var id = 0;
+            if (season != element.season){
+                $("#seasons").append(
+                    $("<div>").attr("id","Season_"+element.season).attr("class","list-group-item list-group-item-action season_name bg-dark").html("Season "+element.season)
+                );
+                $("#Season_"+element.season).click(function (){
+                    $(".Season_"+element.season).toggle();
+                });
+            }
+            season = element.season;
+            var clone = $("#episode_div").clone(true,true);
+            clone[0].childNodes[1].childNodes[1].childNodes[1].href = get_url()+"/vfs/"+encodeURIComponent(element.file);
+            clone[0].childNodes[1].childNodes[1].childNodes[3].href = "vlc-x-callback://x-callback-url/stream?url="+get_url()+"/vfs/"+encodeURIComponent(element.file);
+            clone[0].childNodes[1].childNodes[3].childNodes[1].textContent = element.label;
+            clone.attr("id",element.episodeid);
+            clone.addClass("Season_"+element.season);
+            $("#seasons").append(clone);
+            //clone.show();
+        });
+    });
+}
+
 function make_action(get_what,element_id){
     data_object = {
         "jsonrpc":"2.0",
@@ -77,8 +137,10 @@ function make_action(get_what,element_id){
             $("#plot").html(element.plot);
             $("#movie_rating").html(element.rating.toFixed(1));
             $("#movie_link").attr("href",get_url()+"/vfs/"+encodeURIComponent(element.file));
-            $("#play_movie").attr("href","vlc-x-callback://x-callback-url/stream?url="+get_url()+"/vfs/"+encodeURIComponent(element.file))
-//            $("#play_movie").attr("href","vlc-x-callback://x-callback-url/stream?url=http://rugoli.no-ip.org/vfs//home/disco4tb/dowloaded_files/Bao.2018.1080p.Bluray.X264-EVO[EtHD]/Bao.2018.1080p.Bluray.X264-EVO[EtHD].mkv")
+            $("#play_movie").attr("href","vlc-x-callback://x-callback-url/stream?url="+get_url()+"/vfs/"+element.file);
+            if (get_what == "tvshows"){
+                get_episodes(element.tvshowid);
+            }
 
         } else {
             // GET ALL ELEMENTS
@@ -99,17 +161,11 @@ function make_action(get_what,element_id){
                     id = element.tvshowid
                 }
                 var clone = $("#item_list").clone(true,true);
-                clone.children();
                 clone[0].href = "#"+get_what+"/"+id;
                 clone[0].childNodes[0].textContent = element.label;
                 clone[0].childNodes[1].childNodes[4].textContent = element.rating.toFixed(1);
                 clone.show();
                 $("#items-list").append(clone);
-//                $("#items-list").append(
-//                    $("<a>").attr("href","#"+get_what+"/"+id).attr("class","list-group-item list-group-item-action").html(element.label).append(
-//                        $(" <span>").attr("class","badge badge-dark float-right").html(element.rating.toFixed(1))
-//                    )
-//                );
             });
         }
     });

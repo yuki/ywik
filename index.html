@@ -44,9 +44,9 @@
 -->
 
                 <!-- SHOW ITEM -->
-                <div id="show-item" class="row" style="display:none;">
+                <div id="show-item" class="" style="display:none;">
 
-                    <div id="thumbnail" class="mb-3 "></div>
+                    <div id="thumbnail" class="mb-3 col-md-6 float-left"></div>
 
                     <div id="movie_rating_div" class="fa-3x">
                         <span class="fa-layers fa-fw">
@@ -55,26 +55,35 @@
                         </span>
                     </div>
 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-6 mb-3 float-right">
                         <h1 id="title"></h1>
                         <p id="plot"></p>
 
                         <div id="extra_info" class="mb-3">
-                            <a id="movie_link" href="" onclick="copy_link(this)" class="btn btn-dark" role="button"><i class="fas fa-link"></i></a>
+                            <a id="movie_link" href="" class="btn btn-dark" role="button"><i class="fas fa-link"></i></a>
                             <a id="play_movie" href="" class="btn btn-dark" role="button"><i class="fas fa-play"></i></a>
                         </div>
 
-                        <!-- SEASONS -->
-                        <div id="seasons" style="display:none">
-                            <a href="" class="list-group-item list-group-item-action season_name">
-                                season title
-                            </a>
-                            <a href="" class="list-group-item list-group-item-action">
-                                <span class="episode">Episode name</span>
-                            </a>
+                    </div>
+                    <div class="col-md-6 float-left">
+                        <!-- SEASONS  & EPISODES -->
+                        <div id="episode_div" class="list-group-item list-group-item-action" style="display:none">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <a id="episode_link" href="" class="btn btn-dark ml-3 mr-3" role="button"><i class="fas fa-link"></i></a>
+                                    <a id="play_episode" href="" class="btn btn-dark" role="button"><i class="fas fa-play"></i></a>
+                                </div>
+                                <div class="col">
+                                    <span class="episode">Episode name</span>
+                                </div>
+                            </div>
                         </div>
+
+                        <div id="seasons" style="display:none"></div>
+
                     </div>
                 </div>
+                <!-- END SHOW ITEM -->
 
                 <!-- ITEM LIST! -->
                 <a id="item_list" href="" class="list-group-item list-group-item-action" style="display:none">
@@ -85,6 +94,8 @@
                     </span>
 
                 </a>
+                <!-- END ITEM LIST -->
+
                 <div class="list-group mt-3" id="items-list"></div>
             </div>
         </main>
